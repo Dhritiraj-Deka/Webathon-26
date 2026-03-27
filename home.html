@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SILONI - Guwahati Zones</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>SILONI</h1>
+    <p>Click a Guwahati area to view tasks</p>
+  </header>
+
+  <div class="main">
+    <!-- Sidebar zones -->
+    <div class="zones">
+      <div class="zone" onclick="showTasks('maligaon')">Maligaon</div>
+      <div class="zone" onclick="showTasks('dispur')">Dispur</div>
+      <div class="zone" onclick="showTasks('beltola')">Beltola</div>
+      <div class="zone" onclick="showTasks('panbazaar')">Pan Bazaar</div>
+      <div class="zone" onclick="showTasks('zooroad')">Zoo Road</div>
+      <div class="zone" onclick="showTasks('paltanbazaar')">Paltan Bazaar</div>
+    </div>
+
+    <!-- Task grid -->
+    <div class="tasks" id="taskList">
+      <p>Select an area to see tasks.</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
