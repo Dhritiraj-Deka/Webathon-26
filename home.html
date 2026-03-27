@@ -3,31 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <title>SILONI - Guwahati Zones</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css"> <!-- external CSS -->
 </head>
 <body>
   <header>
     <h1>SILONI</h1>
-    <p>Click a Guwahati area to view tasks</p>
+    <p>Click a zone in Guwahati to view tasks</p>
   </header>
 
   <div class="main">
-    <!-- Sidebar zones -->
     <div class="zones">
-      <div class="zone" onclick="showTasks('maligaon')">Maligaon</div>
-      <div class="zone" onclick="showTasks('dispur')">Dispur</div>
-      <div class="zone" onclick="showTasks('beltola')">Beltola</div>
-      <div class="zone" onclick="showTasks('panbazaar')">Pan Bazaar</div>
-      <div class="zone" onclick="showTasks('zooroad')">Zoo Road</div>
-      <div class="zone" onclick="showTasks('paltanbazaar')">Paltan Bazaar</div>
+      <button class="zone" onclick="showTasks('zone1')">Zone 1</button>
+      <button class="zone" onclick="showTasks('zone2')">Zone 2</button>
+      <button class="zone" onclick="showTasks('zone3')">Zone 3</button>
+      <button class="zone" onclick="showTasks('zone4')">Zone 4</button>
     </div>
-
-    <!-- Task grid -->
     <div class="tasks" id="taskList">
-      <p>Select an area to see tasks.</p>
+      <p>Select a zone to see tasks.</p>
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script src="script.js">
+	
+  const supabaseUrl = "https://zhhukhbglcmkkomzgheg.supabase.co";
+  const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpoaHVraGJnbGNta2tvbXpnaGVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1ODY1OTYsImV4cCI6MjA5MDE2MjU5Nn0.H5ESyC3_sDJc9IIBnD5Ya3_rsAwsolRe6MDR7clEHDM";
+  const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+</script> <!-- external JS -->
 </body>
 </html>
