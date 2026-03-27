@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SILONI - Guwahati Zones</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    header { background: #4CAF50; color: white; padding: 1rem; text-align: center; }
+    .main { display: flex; }
+    .zones { width: 200px; background: #f4f4f4; padding: 1rem; }
+    .zone { display: block; margin: 0.5rem 0; padding: 0.5rem; width: 100%; }
+    .tasks { flex: 1; padding: 1rem; }
+    .task-card { border: 1px solid #ccc; padding: 1rem; margin-bottom: 1rem; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>SILONI</h1>
+    <p>Click a zone in Guwahati to view tasks</p>
+  </header>
+
+  <div class="main">
+    <div class="zones">
+      <button class="zone" onclick="showTasks('Maligaon')">Maligaon</button>
+      <button class="zone" onclick="showTasks('Dispur')">Dispur</button>
+      <button class="zone" onclick="showTasks('Beltola')">Beltola</button>
+      <button class="zone" onclick="showTasks('Pan Bazaar')">Pan Bazaar</button>
+      <button class="zone" onclick="showTasks('Zoo Road')">Zoo Road</button>
+      <button class="zone" onclick="showTasks('Paltan Bazaar')">Paltan Bazaar</button>
+    </div>
+    <div class="tasks" id="taskList">
+      <p>Select a zone to see tasks.</p>
+    </div>
+  </div>
+
+  <script>
+    // Static sample tasks (no Supabase)
+    const sampleTasks = [
+      { title: "Fix Kitchen Sink", description: "Repair leaking sink", budget: 50, deadline: "2026-03-30", zone: "Maligaon" },
+      { title: "Dog Walking", description: "Walk Labrador for 1 hour", budget: 15, deadline: "2026-03-27", zone: "Dispur" },
+      { title: "House Cleaning", description: "Deep clean 2BHK flat", budget: 80, deadline: "2026-04-01", zone: "Beltola" },
+      { title: "Grocery Delivery", description: "Deliver groceries from market", budget: 20, deadline: "2026-03-28", zone: "Pan Bazaar" },
+      { title: "Tutoring", description: "Math tutoring for Class 10 student", budget: 200, deadline: "2026-04-05", zone: "Zoo Road" },
+      { title: "Painting", description: "Repaint living room walls", budget: 150, deadline: "2026-04-02", zone: "Paltan Bazaar" }
+    ];
+
+    function showTasks(zoneName) {
+      const taskList = document.getElementById('taskList');
+      const tasks = sampleTasks.filter(task => task.zone === zoneName);
+
+      if (tasks.length === 0) {
+        taskList.innerHTML = "<p>No tasks available in this area.</p>";
+        return;
+      }
+
+      taskList.innerHTML = "";
+      tasks.forEach(task => {
+        const card = document.createElement('div');
+        card.className = 'task-card';
+        card.innerHTML = `
+          <h3>${task.title}</h3>
+          <p>${task.description}</p>
+          <p><strong>Budget:</strong> ${task.budget}</p>
+          <p><strong>Deadline:</strong> ${task.deadline}</p>
+          <p><strong>Location:</strong> ${task.zone}</p>
+        `;
+        taskList.appendChild(card);
+      });
+    }
+  </script>
+</body>
+</html>
