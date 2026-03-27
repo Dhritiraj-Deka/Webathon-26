@@ -2,16 +2,84 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>SILONI - Guwahati Zones</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>SILONI - Backup</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-    header { background: #4CAF50; color: white; padding: 1rem; text-align: center; }
-    .main { display: flex; }
-    .zones { width: 200px; background: #f4f4f4; padding: 1rem; }
-    .zone { display: block; margin: 0.5rem 0; padding: 0.5rem; width: 100%; }
-    .tasks { flex: 1; padding: 1rem; }
-    .task-card { border: 1px solid #ccc; padding: 1rem; margin-bottom: 1rem; border-radius: 5px; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: #e0e0e0;
+    }
+    header {
+      background: #1f1f1f;
+      padding: 2rem;
+      text-align: center;
+      border-bottom: 1px solid #333;
+    }
+    header h1 {
+      font-size: 3rem;
+      font-style: italic;
+      color: #ffffff;
+      margin: 0;
+    }
+    header p {
+      color: #aaa;
+      margin-top: 0.5rem;
+    }
+    .main {
+      display: flex;
+      min-height: calc(100vh - 120px);
+    }
+    .zones {
+      width: 220px;
+      background: #1a1a1a;
+      padding: 1rem;
+      border-right: 1px solid #333;
+    }
+    .zone {
+      display: block;
+      margin: 0.5rem 0;
+      padding: 0.7rem;
+      width: 100%;
+      background: #2a2a2a;
+      color: #e0e0e0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .zone:hover {
+      background: #333;
+    }
+    .tasks {
+      flex: 1;
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 1.5rem;
+    }
+    .task-card {
+      background: #1f1f1f;
+      border: 1px solid #333;
+      padding: 1rem;
+      border-radius: 6px;
+      height: 220px;
+      overflow: hidden;
+    }
+    .task-card h3 {
+      margin-top: 0;
+      text-shadow: 0 0 8px currentColor;
+    }
+    .remote-title {
+      color: #00ff00; /* glowing green */
+    }
+    .onsite-title {
+      color: #00aaff; /* glowing blue */
+    }
+    .task-card p {
+      margin: 0.3rem 0;
+      color: #ccc;
+    }
   </style>
 </head>
 <body>
@@ -35,15 +103,22 @@
   </div>
 
   <script>
-    // Static sample tasks (no Supabase)
-    const sampleTasks = [
-      { title: "Fix Kitchen Sink", description: "Repair leaking sink", budget: 50, deadline: "2026-03-30", zone: "Maligaon" },
-      { title: "Dog Walking", description: "Walk Labrador for 1 hour", budget: 15, deadline: "2026-03-27", zone: "Dispur" },
-      { title: "House Cleaning", description: "Deep clean 2BHK flat", budget: 80, deadline: "2026-04-01", zone: "Beltola" },
-      { title: "Grocery Delivery", description: "Deliver groceries from market", budget: 20, deadline: "2026-03-28", zone: "Pan Bazaar" },
-      { title: "Tutoring", description: "Math tutoring for Class 10 student", budget: 200, deadline: "2026-04-05", zone: "Zoo Road" },
-      { title: "Painting", description: "Repaint living room walls", budget: 150, deadline: "2026-04-02", zone: "Paltan Bazaar" }
-    ];
+    // Generate 12 tasks per zone with random remote/onsite assignment
+    const sampleTasks = [];
+    const zones = ["Maligaon","Dispur","Beltola","Pan Bazaar","Zoo Road","Paltan Bazaar"];
+    zones.forEach(zone => {
+      for (let i = 1; i <= 12; i++) {
+        const type = Math.random() < 0.5 ? "remote" : "onsite";
+        sampleTasks.push({
+          title: `Task ${i} in ${zone}`,
+          description: `Description for task ${i} located in ${zone}.`,
+          budget: Math.floor(Math.random() * 200) + 20,
+          deadline: `2026-04-${(i<10?"0":"")+i}`,
+          zone: zone,
+          type: type
+        });
+      }
+    });
 
     function showTasks(zoneName) {
       const taskList = document.getElementById('taskList');
@@ -58,12 +133,14 @@
       tasks.forEach(task => {
         const card = document.createElement('div');
         card.className = 'task-card';
+        const titleClass = task.type === "remote" ? "remote-title" : "onsite-title";
         card.innerHTML = `
-          <h3>${task.title}</h3>
+          <h3 class="${titleClass}">${task.title}</h3>
           <p>${task.description}</p>
           <p><strong>Budget:</strong> ${task.budget}</p>
           <p><strong>Deadline:</strong> ${task.deadline}</p>
           <p><strong>Location:</strong> ${task.zone}</p>
+          <p><strong>Type:</strong> ${task.type}</p>
         `;
         taskList.appendChild(card);
       });
